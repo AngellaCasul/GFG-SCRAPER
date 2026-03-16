@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GFG Topic Scraper</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-dot"></div>
+  <span class="nav-title">GFG Topic Scraper</span>
+  <span class="nav-badge" id="nav-badge">0 topics selected</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>GeeksforGeeks<br>Learning Module Generator</h1>
+  <p>Select your topics, scrape the articles, and download a clean academic PDF — all in one place.</p>
+</div>
+
+<div class="main">
+
+  <!-- STEP 1: SELECT TOPICS -->
+  <div class="step-label">Step 1 — Select Topics</div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Available Topics</div>
+      <div class="select-actions">
+        <button class="btn-link" onclick="selectAll()">Select All</button>
+        <span class="divider">|</span>
+        <button class="btn-link" onclick="selectNone()">Clear</button>
+      </div>
+    </div>
+    <div id="topics-grid">
+      <!-- Checkboxes injected by JS -->
+    </div>
+  </div>
+
+  <!-- STEP 2: SCRAPE -->
+  <div class="step-label">Step 2 — Scrape Selected Topics</div>
+  <div class="card">
+    <div class="card-title">Actions</div>
+    <div class="btn-row">
+      <button class="btn btn-green" id="btn-scrape" onclick="startScrape()" disabled>▶ Scrape Selected</button>
+      <button class="btn btn-gray"  id="btn-load"   onclick="loadData()">↻ Load Saved Data</button>
+      <button class="btn btn-red"   id="btn-clear"  onclick="clearData()">✕ Clear</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="card" id="progress-box">
+    <div class="card-title">Scraping Progress</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="progress-log" id="progress-log"></div>
+  </div>
+
+  <!-- STEP 3: DOWNLOAD -->
+  <div class="step-label">Step 3 — Download PDF</div>
+  <div class="card">
+    <div class="card-title">Export</div>
+    <div class="name-row">
+      <div class="input-group">
+        <label>Your Name (appears in PDF footer)</label>
+        <input type="text" id="student-name" placeholder="Enter your name here"/>
+      </div>
+      <button class="btn btn-accent" id="btn-pdf" onclick="generatePDF()" disabled>⬇ Download PDF</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats" id="stats-row" style="display:none">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-topics">0</div>
+      <div class="stat-label">Topics</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-articles">0</div>
+      <div class="stat-label">Articles</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-easy">0</div>
+      <div class="stat-label">Easy</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-hard">0</div>
+      <div class="stat-label">Medium / Hard</div>
+    </div>
+  </div>
+
+  <!-- ARTICLES PREVIEW -->
+  <div class="section-title" id="articles-label">Scraped Articles</div>
+  <div id="articles-container">
+    <div id="empty-state">
+      <div class="emoji">📚</div>
+      <p>No data yet.<br>Select topics above and click <strong>Scrape Selected</strong>,<br>or click <strong>Load Saved Data</strong> if you've scraped before.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
